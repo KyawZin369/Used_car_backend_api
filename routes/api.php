@@ -16,10 +16,10 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
 
+
 Route::middleware('auth:sanctum')->group(function () {
     // User-specific routes
     Route::get('/user', [UserController::class, 'index']);
-    Route::get('/user/{id}', [UserController::class,'show']);
 
     Route::prefix('/user/car')->group(function () {
         Route::post('/', [CarController::class, 'store']);
@@ -33,11 +33,13 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/{id}', [BitController::class, 'update']);
     });
 
+    Route::get('/user/{id}', [UserController::class,'show']);
+
     // Admin routes (protected by 'admin' middleware)
     Route::middleware([AdminMiddleware::class])->group(function () {
         Route::get('/admin', [AdminController::class, 'index']);
 
-        Route::prefix('/car')->group(function () {
+        Route::prefix('/admin/car')->group(function () {
             Route::post('/', [CarController::class, 'store']);
             Route::get('/', [CarController::class, 'index']);
             Route::get('/{id}', [CarController::class, 'show']);

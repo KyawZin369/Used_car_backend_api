@@ -25,7 +25,12 @@ class CarController extends Controller
     public function show($carId)
     {
         $car = Car::findOrFail($carId);
-        return response()->json(['car' => $car], 200);
+
+        if($car){
+            return response()->json(['car' => $car], 200);
+        }
+
+        return response()->json(['message' => 'Car is not available'], 404);
     }
 
     public function searchCars(Request $request)
@@ -74,7 +79,7 @@ class CarController extends Controller
         return response()->json(['car' => $car], 200);
     }
 
-    public function delete($carId)
+    public function destroy($carId)
     {
         $car = Car::findOrFail($carId);
         $car->delete();
