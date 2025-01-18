@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\BitController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\TransactionController;
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -45,6 +46,10 @@ Route::middleware('auth:sanctum')->group(function () {
             Route::get('/{id}', [CarController::class, 'show']);
             Route::put('/{id}', [CarController::class, 'update']);
             Route::delete('/{id}', [CarController::class, 'destroy']);
+        });
+
+        Route::prefix('/admin/transaction')->group(function () {
+            Route::get('/', [TransactionController::class, 'index']);
         });
 
         Route::prefix('/bit')->group(function () {
