@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('/user/bit')->group(function () {
+        Route::post('/', [BitController::class, 'create']);
         Route::get('/', [BitController::class, 'index']);
         Route::get('/{id}', [BitController::class, 'show']);
         Route::put('/{id}', [BitController::class, 'update']);
