@@ -7,6 +7,13 @@ use App\Http\Controllers\CarController;
 use App\Http\Controllers\BitController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\AppointmentController;
+
+Route::middleware('auth:sanctum')->post('/appointments', [AppointmentController::class, 'store']);
+
+
+// Public route for fetching cars
+Route::get('/cars', [CarController::class, 'publicIndex']);
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

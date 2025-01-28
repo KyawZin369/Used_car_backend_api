@@ -4,12 +4,44 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Car;
-
+// Add necessary imports
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Log;
 
 class CarController extends Controller
 {
 
     protected $queryWith = ['user'];
+
+    public function publicIndex(): JsonResponse
+{
+    try {
+        // Fetch all cars
+        $cars = Car::all();
+
+        // Check if cars exist
+        if ($cars->isEmpty()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'No cars found',
+            ], 404);
+        }
+
+        // Return cars data
+        return response()->json([
+            'status' => 'success',
+            'cars' => $cars,
+        ], 200);
+    } catch (\Exception $e) {
+        // Log any unexpected errors
+        Log::error('Error fetching cars:', ['error' => $e->getMessage()]);
+
+        return response()->json([
+            'status' => 'error',
+            'message' => 'An error occurred while fetching cars',
+        ], 500);
+    }
+}
 
     public function index()
     {
@@ -87,3 +119,4 @@ class CarController extends Controller
         return response()->json(['message' => 'Car deleted successfully'], 200);
     }
 }
+
