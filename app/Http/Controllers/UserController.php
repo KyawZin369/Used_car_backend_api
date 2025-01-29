@@ -55,6 +55,11 @@ class UserController extends Controller
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 
+    public function logout(Request $request){
+        $request->user()->currentAccessToken()->delete();
+        return response()->json(['message' => 'Logged out successfully'], 200);
+    }
+
     public function updateProfile(Request $request)
     {
         $user = $request->user();
