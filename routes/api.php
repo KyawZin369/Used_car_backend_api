@@ -24,6 +24,13 @@ Route::post('/login', [UserController::class, 'login']);
 
 Route::middleware('auth:sanctum')->post('/logout', [UserController::class, 'logout']);
 
+use App\Http\Controllers\BidController;
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/car/{id}/bid', [BidController::class, 'placeBid']);
+    Route::get('/car/{id}/bids', [BidController::class, 'getBids']);
+});
+
 
 Route::middleware('auth:sanctum')->group(function () {
     // User-specific routes
