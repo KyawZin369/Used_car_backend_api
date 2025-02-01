@@ -118,5 +118,15 @@ class CarController extends Controller
 
         return response()->json(['message' => 'Car deleted successfully'], 200);
     }
+
+    public function carsWithBids()
+{
+    // Fetch cars with their associated bids
+    $cars = Car::whereHas('bids') // Only include cars that have bids
+               ->with('bids') // Eager load the bids relationship
+               ->get();
+
+    return response()->json($cars);
+}
 }
 

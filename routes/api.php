@@ -78,3 +78,11 @@ Route::middleware('auth:sanctum')->group(function () {
         });
     });
 });
+
+Route::get('/cars-with-bids', [CarController::class, 'carsWithBids']);
+
+Route::get('bids/{carId}', [BidController::class, 'showBids']);
+Route::post('bids/approve/{bidId}', [BidController::class, 'approveBid']);
+Route::middleware('auth:sanctum')->get('/my-bids/{user_id}', [BidController::class, 'myBids']);
+
+

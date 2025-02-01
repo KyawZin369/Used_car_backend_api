@@ -13,6 +13,7 @@ class Bid extends Model
         'car_id',
         'user_id',
         'bid_price',
+        'approve',  // Add the new approve field here
     ];
 
     public function car()
