@@ -25,4 +25,26 @@ class AppointmentController extends Controller
             'appointment' => $appointment,
         ], 201);
     }
+
+    public function myAppointments(Request $request, $user_id)
+{
+    $appointments = Appointment::where('user_id', $user_id)
+        ->get();
+
+    return response()->json(['appointments' => $appointments]);
+}
+
+public function carAppointment(Request $request, $carId)
+{
+    $appointments = Appointment::where('car_id', $car_id)
+        ->get();
+
+    return response()->json(['appointments' => $appointments]);
+}
+
+    public function appointments(){
+        $appointments = Appointment::all();
+        return response()->json(['appointments' => $appointments], 200);
+    }
+
 }

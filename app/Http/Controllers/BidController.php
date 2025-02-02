@@ -89,4 +89,11 @@ class BidController extends Controller
     return response()->json(['bids' => $bids]);
 }
 
+public function getApprovedBids()
+    {
+        // Fetch bids with 'approve' field set to true
+        $approvedBids = Bid::where('approve', true)->get();
+
+        return response()->json($approvedBids);
+    }
 }
